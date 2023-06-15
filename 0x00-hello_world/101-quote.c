@@ -5,7 +5,7 @@
  *
  * Description: A C program that prints the sizes of various data types
  *
- * Return: Always 0 (Success)
+ * Return: Always 1 (Success)
  */
 int main(void)
 {
