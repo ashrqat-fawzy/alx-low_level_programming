@@ -13,8 +13,9 @@ int main(void)
 
 	while (d <= 9)
 	{
-		putchar(d);
+		printf("%i", d);
 		d++;
 	}
+	printf("\n");
 	return (0);
 }
