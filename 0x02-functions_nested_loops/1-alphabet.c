@@ -6,8 +6,8 @@
 *Description: print the alphabet - unilizes on the _putchar function to print
 * the he alphabet, in lowercase
 *
-* Return: Always 0
-*/
+*
+*
 
 void print_alphabet(void)
 {
@@ -19,5 +19,5 @@ void print_alphabet(void)
 	}
 
 	putchar('\n');
-	return (0);
+	
 }
