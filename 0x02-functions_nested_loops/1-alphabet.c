@@ -7,7 +7,7 @@
 * the he alphabet, in lowercase
 *
 *
-*
+*/
 
 void print_alphabet(void)
 {
