@@ -11,11 +11,10 @@ void print_numbers(void)
 
 	for (ch = 0; ch < 10; ch++)
 	{
-		if ((ch + '0') == 2 || (ch + '0') == 4)
+		if ((ch + '0') != 2 || (ch + '0') != 4)
 		{
-			continue;
+			_putchar(ch + '0');
 		}
-		_putchar(ch + '0');
 	}
 	_putchar('\n');
 }
