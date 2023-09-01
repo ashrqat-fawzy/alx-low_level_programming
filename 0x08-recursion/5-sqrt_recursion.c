@@ -3,7 +3,7 @@
 /**
  * power_operation - returns the natural square root of a number.
  * @n: input number.
- * @c: iterator.
+ * @val: iterator.
  * Return: square root or -1.
 */
 
@@ -26,5 +26,5 @@ if (val * val == n)
 else if (val * val < n)
 	return (power_operation(n, val + 1));
 else
-	return(-1);
+	return (-1);
 }
