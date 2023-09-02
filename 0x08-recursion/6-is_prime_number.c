@@ -2,7 +2,6 @@
 
  /**
  * prime _detets if an input is prime or not.
- * is_prime_number if an input is prime or not.
  * @n: input number.
  * @i: iterator.
  * Return: 1 if the input integer is a prime number, otherwise return 0.
@@ -29,7 +28,6 @@ return (prime(n, i + 1));
 
  /**
  * is_prime_number if an input is prime or not.
- * prime _detets if an input is prime or not.
  * @n: input number.
  * Return: 1 if the input integer is a prime number, otherwise return 0.
  */
@@ -41,4 +39,4 @@ if (n <= 0 || n == 1)
 	return (0);
 
 return (prime(n, 2));
-}
+i}
