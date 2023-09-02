@@ -10,7 +10,6 @@
 
 int p(int n, int i)
 {
- i = 2;
 
 if (n % i == 0)
 	return (0);
@@ -39,5 +38,5 @@ int is_prime_number(int n)
 if (n <= 0 || n == 1)
 	return (0);
 
-return (p(n, i));
+return (p(n, 2));
 }
