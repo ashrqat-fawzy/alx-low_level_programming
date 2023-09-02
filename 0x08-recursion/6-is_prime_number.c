@@ -8,8 +8,10 @@
  * Return: 1 if the input integer is a prime number, otherwise return 0.
  */
 
-int p(int n, int i = 2)
+int p(int n, int i)
 {
+int i = 2;
+
 if (n % i == 0)
 	return (0);
 else if (n <= 2)
