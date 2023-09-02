@@ -10,7 +10,7 @@
 
 int p(int n, int i)
 {
-int i = 2;
+ i = 2;
 
 if (n % i == 0)
 	return (0);
