@@ -1,7 +1,7 @@
 #include "main.h"
 
  /**
- * p return 1 or 0.
+ * p return 1 if prime, otherwise return 0.
  * is_prime_number _ return 1 or 0.
  * @n: input number.
  * @i: iterator.
@@ -24,12 +24,12 @@ if (i * i > n)
 {
 	return (1);
 }
-return (p(n, i+1));
+return (p(n, i + 1));
 }
  /**
- * is_prime_number _ return 1 or 0.
+ * is_prime_number _ return  1 if the input integer is a prime number, otherwise return 0.
+ * p return 1 if prime, otherwise return 0.
  * @n: input number.
- * Return: 1 if the input integer is a prime number, otherwise return 0.
  */
 
 int is_prime_number(int n)
