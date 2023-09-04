@@ -2,12 +2,13 @@
 #include <stdlib.h>
 
  /**
- * create_array - creates an array of chars, initialized with a specific char
- * @size: size of the array to be created
- * @c: char to initialize the array with
+ * create_array - creates an array of characters with the given size and initializes
+ * them with a specified character.
+ * @size: the size of the array to be created.
+ * @c: character used for initialization of the array.
  *
- * Return: pointer to the created array, or NULL if size is 0 or if memory
- * allocation fails
+ * Return: If size is zero or malloc fails to allocate the needed memory, returns NULL. 
+ * Otherwise, returns a pointer to the created array.
  */
 
 char *create_array(unsigned int size, char c)
