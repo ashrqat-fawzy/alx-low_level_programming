@@ -1,100 +1,105 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "main.h"
 
 /**
- * is_digit - checks if a string contains a non-digit char
- * @s: string to be evaluated
- *
- * Return: 0 if a non-digit is found, 1 otherwise
+ * strtow - splits a string into words
+ * @str: string of words to be split
+ * Return: double pointer to strings
  */
-int is_digit(char *s)
+char **strtow(char *str)
 {
-	int i = 0;
+	char **ptr;
+	int i, k, len, start, end, j = 0;
+	int words =  countWords(str);
 
-	while (s[i])
+	if (!str || !countWords(str))
+		return (NULL);
+	ptr = malloc(sizeof(char *) * (words + 1));
+	if (!ptr)
+		return (NULL);
+	for (i = 0; i < words; i++)
 	{
-		if (s[i] < '0' || s[i] > '9')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-/**
- * _strlen - returns the length of a string
- * @s: string to evaluate
- *
- * Return: the length of the string
- */
-int _strlen(char *s)
-{
-	int i = 0;
-
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-/**
- * errors - handles errors for main
- */
-void errors(void)
-{
-	printf("Error\n");
-	exit(98);
-}
-
-/**
- * main - multiplies two positive numbers
- * @argc: number of arguments
- * @argv: array of arguments
- *
- * Return: always 0 (Success)
- */
-int main(int argc, char *argv[])
-{
-	char *s1, *s2;
-	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
-
-	s1 = argv[1], s2 = argv[2];
-	if (argc != 3 || !is_digit(s1) || !is_digit(s2))
-		errors();
-	len1 = _strlen(s1);
-	len2 = _strlen(s2);
-	len = len1 + len2 + 1;
-	result = malloc(sizeof(int) * len);
-	if (!result)
-		return (1);
-	for (i = 0; i <= len1 + len2; i++)
-		result[i] = 0;
-	for (len1 = len1 - 1; len1 >= 0; len1--)
-	{
-		digit1 = s1[len1] - '0';
-		carry = 0;
-		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
+		start = startIndex(str, j);
+		end = endIndex(str, start);
+		len = end - start;
+		ptr[i] = malloc(sizeof(char) * (len + 1));
+		if (!ptr[i])
 		{
-			digit2 = s2[len2] - '0';
-			carry += result[len1 + len2 + 1] + (digit1 * digit2);
-			result[len1 + len2 + 1] = carry % 10;
-			carry /= 10;
+			i -= 1;
+			while (i >= 0)
+			{
+				free(ptr[i]);
+					i--;
+			}
+			free(ptr);
+			return (NULL);
 		}
-		if (carry > 0)
-			result[len1 + len2 + 1] += carry;
+		for (k = 0; k < len; k++)
+			ptr[i][k] = str[start++];
+		ptr[i][k++] = '\0';
+		j = end + 1;
 	}
-	for (i = 0; i < len - 1; i++)
+	ptr[i] = NULL;
+	return (ptr);
+}
+
+/**
+ * isSpace - determines if character is a space or not
+ * @c: input char
+ * Return: 1 if true or 0 or not
+ */
+int isSpace(char c)
+{
+	return (c == ' ');
+}
+
+/**
+ * startIndex - returns first index of non-space char
+ * @s: input string
+ * @index: starting index
+ * Return: index of first non-space char
+ */
+int startIndex(char *s, int index)
+{
+
+	while (isSpace(*(s + index)))
+		index++;
+	return (index);
+}
+
+/**
+ * endIndex - returns last index of non-space char
+ * @s: input string
+ * @index: starting index
+ * Return: index of last index of non-space char
+ */
+int endIndex(char *s, int index)
+{
+	while (!isSpace(*(s + index)))
+		index++;
+	return (index);
+}
+
+/**
+ * countWords - counts numbers of words in string
+ * @s: input string
+ * Return: number of words
+ */
+int countWords(char *s)
+{
+	int wordOn = 0;
+	int words = 0;
+
+	while (*s)
 	{
-		if (result[i])
-			a = 1;
-		if (a)
-			_putchar(result[i] + '0');
+		if (isSpace(*s) && wordOn)
+			wordOn = 0;
+		else if (!isSpace(*s) && !wordOn)
+		{
+			wordOn = 1;
+			words++;
+		}
+		s++;
 	}
-	if (!a)
-		_putchar('0');
-	_putchar('\n');
-	free(result);
-	return (0);
+	return (words);
 }
 
