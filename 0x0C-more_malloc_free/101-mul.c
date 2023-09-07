@@ -1,105 +1,114 @@
 #include "main.h"
+#include <stdio.h>
+#include <string.h>
 
 /**
- * strtow - splits a string into words
- * @str: string of words to be split
- * Return: double pointer to strings
+ * _isdigit - checks if character is digit
+ * @c: the character to check
+ *
+ * Return: 1 if digit, 0 otherwise
  */
-char **strtow(char *str)
+int _isdigit(int c)
 {
-	char **ptr;
-	int i, k, len, start, end, j = 0;
-	int words =  countWords(str);
+	return (c >= '0' && c <= '9');
+}
 
-	if (!str || !countWords(str))
-		return (NULL);
-	ptr = malloc(sizeof(char *) * (words + 1));
-	if (!ptr)
-		return (NULL);
-	for (i = 0; i < words; i++)
+/**
+ * _strlen - returns the length of a string
+ * @s: the string whose length to check
+ *
+ * Return: integer length of string
+ */
+int _strlen(char *s)
+{
+	int i = 0;
+
+	while (*s++)
+		i++;
+	return (i);
+}
+
+/**
+ * big_multiply - multiply two big number strings
+ * @s1: the first big number string
+ * @s2: the second big number string
+ *
+ * Return: the product big number string
+ */
+char *big_multiply(char *s1, char *s2)
+{
+	char *r;
+	int l1, l2, a, b, c, x;
+
+	l1 = _strlen(s1);
+	l2 = _strlen(s2);
+	r = malloc(a = x = l1 + l2);
+	if (!r)
+		printf("Error\n"), exit(98);
+	while (a--)
+		r[a] = 0;
+
+	for (l1--; l1 >= 0; l1--)
 	{
-		start = startIndex(str, j);
-		end = endIndex(str, start);
-		len = end - start;
-		ptr[i] = malloc(sizeof(char) * (len + 1));
-		if (!ptr[i])
+		if (!_isdigit(s1[l1]))
 		{
-			i -= 1;
-			while (i >= 0)
+			free(r);
+			printf("Error\n"), exit(98);
+		}
+		a = s1[l1] - '0';
+		c = 0;
+
+		for (l2 = _strlen(s2) - 1; l2 >= 0; l2--)
+		{
+			if (!_isdigit(s2[l2]))
 			{
-				free(ptr[i]);
-					i--;
+				free(r);
+				printf("Error\n"), exit(98);
 			}
-			free(ptr);
-			return (NULL);
+			b = s2[l2] - '0';
+
+			c += r[l1 + l2 + 1] + (a * b);
+			r[l1 + l2 + 1] = c % 10;
+
+			c /= 10;
 		}
-		for (k = 0; k < len; k++)
-			ptr[i][k] = str[start++];
-		ptr[i][k++] = '\0';
-		j = end + 1;
+		if (c)
+			r[l1 + l2 + 1] += c;
 	}
-	ptr[i] = NULL;
-	return (ptr);
+	return (r);
 }
 
-/**
- * isSpace - determines if character is a space or not
- * @c: input char
- * Return: 1 if true or 0 or not
- */
-int isSpace(char c)
-{
-	return (c == ' ');
-}
 
 /**
- * startIndex - returns first index of non-space char
- * @s: input string
- * @index: starting index
- * Return: index of first non-space char
+ * main - multiply two big number strings
+ * @argc: the number of arguments
+ * @argv: the argument vector
+ *
+ * Return: Always 0 on success.
  */
-int startIndex(char *s, int index)
+int main(int argc, char **argv)
 {
+	char *r;
+	int a, c, x;
 
-	while (isSpace(*(s + index)))
-		index++;
-	return (index);
-}
+	if (argc != 3)
+		printf("Error\n"), exit(98);
 
-/**
- * endIndex - returns last index of non-space char
- * @s: input string
- * @index: starting index
- * Return: index of last index of non-space char
- */
-int endIndex(char *s, int index)
-{
-	while (!isSpace(*(s + index)))
-		index++;
-	return (index);
-}
-
-/**
- * countWords - counts numbers of words in string
- * @s: input string
- * Return: number of words
- */
-int countWords(char *s)
-{
-	int wordOn = 0;
-	int words = 0;
-
-	while (*s)
+	x = _strlen(argv[1]) + _strlen(argv[2]);
+	r = big_multiply(argv[1], argv[2]);
+	c = 0;
+	a = 0;
+	while (c < x)
 	{
-		if (isSpace(*s) && wordOn)
-			wordOn = 0;
-		else if (!isSpace(*s) && !wordOn)
-		{
-			wordOn = 1;
-			words++;
-		}
-		s++;
+		if (r[c])
+			a = 1;
+		if (a)
+			_putchar(r[c] + '0');
+		c++;
 	}
-	return (words);
+	if (!a)
+		_putchar('0');
+	_putchar('\n');
+	free(r);
+	return (0);
 }
-
